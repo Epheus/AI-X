@@ -23,7 +23,7 @@ https://
 ## Members
 - 최가형 | kahyung.choi@lge.com
 - 유준석 | alex.you@lge.com
-- 심규호 | kyuho.shim@lge.com
+- 심규호 | yuho.shim@lge.com
 <br>
 <br>
 
