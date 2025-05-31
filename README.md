@@ -95,7 +95,7 @@ https://
 <br>
 
 
-## V. Related Work (참고자료)
+## V. Related Work (코드 작성 시 참고자료)
 * Reference A
   - https://
 * Reference A
