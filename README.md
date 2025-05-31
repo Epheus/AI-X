@@ -12,7 +12,7 @@ https://
 3. [Datasets](#ii-datasets)
 4. [Methodology](#iii-methodology)
 5. [Evaluation & Analysis](#iv-evaluation--analysis)
-6. [Related Work](#v-related-work-eg-existing-studies)
+6. [Related Work](#v-related-work)
 7. [Conclusion](#vi-conclusion-discussion)
 8. [Credits](#vii-credits)
 
