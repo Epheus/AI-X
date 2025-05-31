@@ -1,10 +1,11 @@
 # AI-X
 # 서울시 부동산 실거래가 정보를 활용한 26년도 집값 예측
-
+<br>
 
 발표 동영상 링크
 https://
-
+<br>
+<br>
 
 ## 목차
 1. [Members](#members)
@@ -15,30 +16,33 @@ https://
 6. [Related Work](#v-related-work)
 7. [Conclusion](#vi-conclusion-discussion)
 8. [Credits](#vii-credits)
-
 <br>
+<br>
+
 
 ## Members
 - 최가형 | kahyung.choi@lge.com
 - 유준석 | alex.you@lge.com
 - 심규호 | kyuho.shim@lge.com
-
 <br>
+<br>
+
 
 ## I. Proposal
-<br>
-
 ### Motivation
 주제 선정 배경
+<br>
+
 
 ### Goal
 이 프로젝트의 목표
+<br>
+
 
 ### 서울시 집 값
 <br>
-
-
 <br>
+
 
 ## II. Datasets
 ### Datasets
@@ -74,12 +78,14 @@ https://
 <br>
 [image]
 <br>
+<br>
 
 
 ## III. Methodology
 ### 적용 모델 : 
 <br>
 [description]
+<br>
 <br>
 
 
@@ -95,6 +101,7 @@ https://
 
 ```
 <br>
+<br>
 
 
 ## V. Related Work 
@@ -106,6 +113,7 @@ https://
 * Reference A
   - https://
 <br>
+<br>
 
 
 ## VI. Conclusion: Discussion
@@ -115,6 +123,8 @@ https://
 
 ### Discussion
 <br>
+<br>
+
 
 ## VII. Credits
 Dataset searching, Dataset preprocessing, Data visualization, Methodology introduction
