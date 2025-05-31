@@ -48,7 +48,7 @@ https://
 ### Datasets
 * 데이터셋 링크
 ```
-서울 열린데이터 광장 : http://data.seoul.go.kr/dataList/OA-12921/F/1/datasetView.do](https://data.seoul.go.kr
+서울 열린데이터 광장 : [https://data.seoul.go.kr]
 서울 열린데이터 광장 공공데이터 : https://data.seoul.go.kr/dataList/datasetList.do
 서울시 부동산 실거래가 정보 : 
 ```
