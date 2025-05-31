@@ -60,6 +60,8 @@ https://
 ``` python
 
 ```
+<br>
+
 * 데이터 타입을 확인한다.
 ``` python
 
@@ -68,30 +70,29 @@ https://
 
 ### 데이터 시각화
 <br>
-``` image
-
-```
+[image]
 <br>
 
 
 ## III. Methodology
 ### 적용 모델 : 
-``` description
-
-```
 <br>
+[description]
+<br>
+
 
 ## IV. Evaluation & Analysis
 ### 데이터 학습 및 검증 : 
 ``` python
 
 ```
-
 <br>
+
 ### 모델 사용한 예측 수행 : 
 ``` python
 
 ```
+<br>
 
 
 ## V. Related Work (참고자료)
