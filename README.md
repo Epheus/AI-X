@@ -1,8 +1,10 @@
 # AI-X
 # 서울시 부동산 실거래가 정보를 활용한 26년도 집값 예측
 
+
 발표 동영상 링크
 https://
+
 
 ## 목차
 1. [Members](#members)
@@ -95,7 +97,8 @@ https://
 <br>
 
 
-## V. Related Work (코드 작성 시 참고자료)
+## V. Related Work (참고자료)
+<br>
 * Reference A
   - https://
 * Reference A
