@@ -136,8 +136,7 @@ python read_csv.py
 ### 데이터 시각화
 
 
-<img src="https://raw.githubusercontent.com/Epheus/AI-X/main/district_counts_2017.png" width="800" height="400" alt="2017년 서울시 자치구별 부동산 거래 건수">
-
+![2017년 서울시 자치구별 부동산 거래 건수](https://private-user-images.githubusercontent.com/59636924/449779945-100e70b6-9814-4e2d-9344-b9f060b4c7ff.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDg3OTAxNDUsIm5iZiI6MTc0ODc4OTg0NSwicGF0aCI6Ii81OTYzNjkyNC80NDk3Nzk5NDUtMTAwZTcwYjYtOTgxNC00ZTJkLTkzNDQtYjlmMDYwYjRjN2ZmLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTA2MDElMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwNjAxVDE0NTcyNVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWY1YjZiZDkzOTkwYjMzMjQ5NjlkOWExZGFkNTY0MTlkNjE0ZjYxNGZlNzYxOWI3MDhjYTM3MjA1ZDhiZWZhNjYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.ED7h67ZLy-4V3QtUbBDzhHiL3KqI3t2htnAxog1mLbc)
 <br>
 
 
