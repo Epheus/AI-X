@@ -54,23 +54,33 @@ https://
 ```
 <br>
 
-### Dataset 전처리
-1. 필요한 라이브러리 가져오기
-``` pip install pandas
+#### 1. 환경 설정
+```bash
+# 가상환경 생성 및 활성화
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# 또는
+.\venv\Scripts\activate  # Windows
 
+# 필요한 패키지 설치
+pip install pandas
 ```
-<br>
-  
-2. 서울시 집 값 데이터 로드하기
-* 서울시 집 값 데이터를 csv파일에서 가져옴
-``` python read_csv.py 
 
+#### 2. 데이터 준비
+- `datasets` 디렉토리에 CSV 파일을 위치시킵니다.
+- 파일명 형식: `서울시 부동산 실거래가 정보_YYYY.csv`
+
+#### 3. 스크립트 실행
+```bash
+python read_csv.py
 ```
-<br>
+#### 데이터 정제 기준
+- 기준 컬럼: 지번구분, 토지면적(㎡), 층, 건물용도, 건축년도
+- 제거되는 컬럼: 취소일, 권리구분, 신고구분, 신고한 개업공인중개사 시군구명
 
-* 데이터 타입을 확인한다.한글이기 때문에 cp949 를 사용한다 
-```  df = pd.read_csv(file_path, encoding='cp949')
-
+#### 주의사항
+- CSV 파일은 cp949 인코딩을 사용합니다 (한글 지원)
+- 데이터 파일은 반드시 `datasets` 디렉토리에 위치해야 합니다
 ```
 <br>
 
