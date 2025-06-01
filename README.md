@@ -136,7 +136,7 @@ python read_csv.py
 ### 데이터 시각화
 <br>
 ![2017년 서울시 자치구별 부동산 거래 건수](./district_counts_2017.png)
-https://github.com/Epheus/AI-X/issues/1#issue-3107338590
+![Image](https://github.com/user-attachments/assets/100e70b6-9814-4e2d-9344-b9f060b4c7ff)
 <br>
 <br>
 
