@@ -64,6 +64,8 @@ source venv/bin/activate  # Linux/Mac
 
 # 필요한 패키지 설치
 pip install pandas
+pip install matplotlib
+pip install seaborn
 ```
 
 #### 2. 데이터 준비
@@ -133,7 +135,7 @@ python read_csv.py
 
 ### 데이터 시각화
 <br>
-[image]
+![2017년 서울시 자치구별 부동산 거래 건수](district_counts_2017.png)
 <br>
 <br>
 
