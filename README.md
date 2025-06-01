@@ -56,20 +56,20 @@ https://
 
 ### Dataset 전처리
 1. 필요한 라이브러리 가져오기
-``` python
+``` pip install pandas
 
 ```
 <br>
   
 2. 서울시 집 값 데이터 로드하기
 * 서울시 집 값 데이터를 csv파일에서 가져옴
-``` python
+``` python read_csv.py 
 
 ```
 <br>
 
-* 데이터 타입을 확인한다.
-``` python
+* 데이터 타입을 확인한다.한글이기 때문에 cp949 를 사용한다 
+```  df = pd.read_csv(file_path, encoding='cp949')
 
 ```
 <br>
