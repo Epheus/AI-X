@@ -50,7 +50,7 @@ https://
 ```
 서울 열린데이터 광장 : [https://data.seoul.go.kr]
 서울 열린데이터 광장 공공데이터 : https://data.seoul.go.kr/dataList/datasetList.do
-서울시 부동산 실거래가 정보 : 
+서울시 부동산 실거래가 정보 : 2017년도 부터 2025년도 정보 활용 (코로나 이전 시기 데이터 포함)
 ```
 <br>
 
