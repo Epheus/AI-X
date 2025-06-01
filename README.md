@@ -134,7 +134,9 @@ python read_csv.py
 <br>
 
 ### 데이터 시각화
-![2017년 서울시 자치구별 부동산 거래 건수](./district_counts_2017.png)
+
+
+<img src="datasets/2017.png" alt="Orb" width="500"/>
 
 <br>
 
