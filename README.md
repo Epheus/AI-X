@@ -136,7 +136,7 @@ python read_csv.py
 ### 데이터 시각화
 
 
-<img src="datasets/2017.png" alt="Orb" width="500"/>
+<img src="https://raw.githubusercontent.com/Epheus/AI-X/main/district_counts_2017.png" width="800" height="400" alt="2017년 서울시 자치구별 부동산 거래 건수">
 
 <br>
 
