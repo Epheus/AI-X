@@ -35,12 +35,14 @@ https://
 정확한 집값 예측은 개인의 내 집 마련 의사결정뿐 아니라, 정부의 정책 수립, 부동산 세제 조정, 공급 계획 수립 등 공공 행정 전반에도 중대한 영향을 미칩니다.
 행정적・경제적 의사결정의 핵심 도구로서, 신뢰할 수 있는 공공데이터 기반의 집값 예측 모델의 필요성은 점점 증대되고 있습니다.
 <br>
+<br>
 
 
 ### Goal
 - 본 프로젝트는 서울시의 부동산 실거래가 공공데이터(출처 : 서울 열린데이터 광장)를 기반으로, 특정 지역의 주택 가격 상승/ 하강을 예측하는 모델을 구축하는 것을 목표로 합니다.
 - 이를 위해 거래 시점, 위치, 면적, 층수, 건물 노후도, 건물정보 등 공공데이터의 다양한 요소 특성을 반영하고, 관련 변수의 상관성을 분석하는 것으로 향후 집 값의 변화를 예측 해보려고 합니다.
 - 궁극적으로는 서울시 부동산 시장의 동태를 정량적으로 파악하고, 미래를 예측 가능한 형태로 제시하는 것이 본 과제의 핵심 목적입니다.
+<br>
 <br>
 
 
@@ -49,24 +51,24 @@ https://
 특히 서울시의 아파트 가격은 시장의 주요 지표 중 하나이며, 그 추이를 통해 부동산 시장의 건강 상태를 파악할 수 있습니다. 
 서울시 집값은 다양한 요인에 의해 영향을 받으며, 최근에는 정부 정책, 금리 변동, 경제 상황, 그리고 신축 아파트 공급량 등이 주요 변수로 작용하고 있습니다.
 
--최근 추이:
+- 최근 추이 :
 최근 서울시 아파트 가격은 2021년 이후 2022년과 2023년 연속 하락했지만, 2024년 3월부터 꾸준히 상승세를 보이고 있습니다. 
 
--평균 가격:
+- 평균 가격 :
 2025년 1월 기준 서울 아파트 평균 가격은 13억 8천 289만원으로, 이전 최고점을 넘어섰습니다. 
 
--상위권 아파트:
+- 상위권 아파트 :
 서울 상위 20% 아파트의 평균 매매가격은 30억 942만원으로, 처음 30억원을 돌파했습니다. 
 
--정부 정책:
+- 정부 정책 :
 정부의 부동산 관련 정책은 집값에 영향을 미치며, 규제 완화, 금리 조정, 공급 확대 등의 정책이 서울시 집값에 영향을 미칩니다. 
 
--금리 변동:
+- 금리 변동 :
 금리 인하 또는 인상은 대출 금리를 영향을 미치며, 이는 수요를 변화시켜 서울시 집값에 영향을 미칠 수 있습니다. 
 
--참고: 서울시 집값은 다양한 요인에 의해 복잡하게 영향을 받으며, 단일 요인만으로는 전체적인 시장 상황을 파악하기 어렵습니다. 따라서 서울시 집값 관련 자료를 다각도로 분석하고, 부동산 시장 전문가의 의견도 참고하는 것이 좋습니다.
+- 참고 : 서울시 집값은 다양한 요인에 의해 복잡하게 영향을 받으며, 단일 요인만으로는 전체적인 시장 상황을 파악하기 어렵습니다. 따라서 서울시 집값 관련 자료를 다각도로 분석하고, 부동산 시장 전문가의 의견도 참고하는 것이 좋습니다.
 [출처 : Google AI Searching - https://www.google.com/search?q=%EC%84%9C%EC%9A%B8%EC%8B%9C+%EC%A7%91%EA%B0%92+%EC%9D%B4%EB%9E%80&sca_esv=cf6290cf059c5086&sxsrf=AE3TifMjDumFLPRwJ4Dvg7rLZmNJW1x3VQ%3A1748947104481&source=hp&ei=oNA-aK-qG5bf2roP15KrwQ8&iflsig=AOw8s4IAAAAAaD7esIXsHFmAba93I_9YST1FVAGIpc6v&ved=0ahUKEwiv-pDXh9WNAxWWr1YBHVfJKvgQ4dUDCCs&uact=5&oq=%EC%84%9C%EC%9A%B8%EC%8B%9C+%EC%A7%91%EA%B0%92+%EC%9D%B4%EB%9E%80&gs_lp=Egdnd3Mtd2l6IhfshJzsmrjsi5wg7KeR6rCSIOydtOuegDIFECEYoAEyBRAhGKABMgUQIRigAUi8GFAAWMwXcAN4AJABA5gBjwGgAaYTqgEEMC4yMLgBA8gBAPgBAZgCDKAC3gjCAgQQABgDwgILEC4YgAQYsQMYgwHCAgsQABiABBixAxiDAcICBBAuGAPCAgUQABiABMICCBAAGIAEGLEDwgIFEC4YgATCAggQLhiABBixA8ICCxAuGIAEGNEDGMcBwgIOEC4YgAQYsQMYxwEYrwHCAgsQLhiABBjHARivAcICChAuGAMYxwEYrwHCAggQABiABBiiBMICBRAAGO8FwgIEEAAYHsICBhAAGAgYHpgDAJIHAzMuOaAHrZsBsgcDMC45uAfUCMIHBzIuOS4wLjHIBxw&sclient=gws-wiz]
-
+<br>
 <br>
 
 
