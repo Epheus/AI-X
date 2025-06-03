@@ -43,7 +43,6 @@ https://
 - 이를 위해 거래 시점, 위치, 면적, 층수, 건물 노후도, 건물정보 등 공공데이터의 다양한 요소 특성을 반영하고, 관련 변수의 상관성을 분석하는 것으로 향후 집 값의 변화를 예측 해보려고 합니다.
 - 궁극적으로는 서울시 부동산 시장의 동태를 정량적으로 파악하고, 미래를 예측 가능한 형태로 제시하는 것이 본 과제의 핵심 목적입니다.
 <br>
-<br>
 
 
 ### 서울시 집 값에 대하여...
@@ -80,7 +79,10 @@ https://
 서울 열린데이터 광장 공공데이터 : https://data.seoul.go.kr/dataList/datasetList.do
 서울시 부동산 실거래가 정보 : 2017년도 부터 2025년도 정보 활용 (코로나 이전 시기 데이터 포함)
 ```
+<img src="https://github.com/user-attachments/assets/7031e130-3354-4560-a141-fc5af3470f2d" width="600"/>
 <br>
+<br>
+
 
 #### 1. 환경 설정
 ```bash
@@ -159,12 +161,15 @@ python read_csv.py
 - CSV 파일은 cp949 인코딩을 사용합니다 (한글 지원)
 - 데이터 파일은 반드시 `datasets` 디렉토리에 위치해야 합니다
 <br>
+<br>
 
 
 ### 데이터 시각화
 ```
 ![2017년 서울시 자치구별 부동산 거래 건수](https://private-user-images.githubusercontent.com/59636924/449779945-100e70b6-9814-4e2d-9344-b9f060b4c7ff.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDg3OTAxNDUsIm5iZiI6MTc0ODc4OTg0NSwicGF0aCI6Ii81OTYzNjkyNC80NDk3Nzk5NDUtMTAwZTcwYjYtOTgxNC00ZTJkLTkzNDQtYjlmMDYwYjRjN2ZmLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTA2MDElMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwNjAxVDE0NTcyNVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWY1YjZiZDkzOTkwYjMzMjQ5NjlkOWExZGFkNTY0MTlkNjE0ZjYxNGZlNzYxOWI3MDhjYTM3MjA1ZDhiZWZhNjYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.ED7h67ZLy-4V3QtUbBDzhHiL3KqI3t2htnAxog1mLbc)
 ```
+<img src="https://github.com/user-attachments/assets/5a980472-e621-46fc-8dae-cdcd24759cc5" width="600"/>
+<br>
 <br>
 
 
