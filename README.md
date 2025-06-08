@@ -177,6 +177,12 @@ read_csv.py가 실행되면 datasets 밑에는 년도.csv 파일이 생성되고
 <br>
 <br>
 
+### 예(강남구) 연도별 평균 금액의 변화 
+앞에서 진행한 read_csv.py로 정제된 데이터를 만들고 
+final_pt.py를 실행시킬 때 아래와 같이 예로 강남구를 선택해서 진행하면 아래와 같은 연도별 강남구의 평균 건물 각격의 변화를 출력할 수 있다.
+
+![Image](https://github.com/user-attachments/assets/ccc34c2c-8934-4189-b5eb-b50747638300)
+
 
 ## III. Methodology
 ### 적용 모델 : 
