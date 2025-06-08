@@ -30,8 +30,31 @@ def show_avg_price(dfs, gu, years):
     plt.xticks(years)
     plt.show()
 
-
+def show_all_gu_avg_price(dfs, years):
+    # 모든 자치구의 년도별 평균 물건 금액을 구하고 그래프로 표시
+    print("\n=== 모든 자치구 년도별 평균 거래금액 분석 ===")
     
+    # 그래프 그리기
+    plt.figure(figsize=(15, 8))
+    
+    # 각 자치구별로 평균 거래금액 계산 및 그래프 그리기
+    for gu in sorted(common_gu):
+        gu_prices = []
+        for year, df in zip(years, dfs):
+            gu_mean = df[df['자치구명'] == gu]['물건금액(만원)'].mean() / 10000
+            gu_prices.append(gu_mean)
+            print(f"{year}년 {gu} 평균 거래금액: {gu_mean:.2f}억원")
+        
+        plt.plot(years, gu_prices, marker='o', label=gu)
+    
+    plt.title('서울시 자치구별 연도별 평균 거래금액 추이')
+    plt.xlabel('연도')
+    plt.ylabel('평균 거래금액 [억 원]')
+    plt.grid(True)
+    plt.xticks(years)
+    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+    plt.tight_layout()
+    plt.show()
 
 # datasets 폴더에서 숫자.csv 파일만 찾기
 data_path = './datasets/'
@@ -91,5 +114,14 @@ print("\n=== 강남구 년도별 평균 거래금액 분석 ===")
 dfs = [df_2017, df_2018, df_2019, df_2020, df_2021, df_2022, df_2023, df_2024, df_2025]
 
 show_avg_price(dfs, '강남구', years)
+
+show_avg_price(dfs, '양천구', years)
+
+# 강남구와 양천구의 평균 거래금액 분석
+print("\n=== 강남구와 양천구 년도별 평균 거래금액 분석 ===")
+dfs = [df_2017, df_2018, df_2019, df_2020, df_2021, df_2022, df_2023, df_2024, df_2025]
+
+# 모든 자치구의 평균 거래금액 분석
+show_all_gu_avg_price(dfs, years)
 
 
