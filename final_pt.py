@@ -115,12 +115,6 @@ dfs = [df_2017, df_2018, df_2019, df_2020, df_2021, df_2022, df_2023, df_2024, d
 
 show_avg_price(dfs, '강남구', years)
 
-show_avg_price(dfs, '양천구', years)
-
-# 강남구와 양천구의 평균 거래금액 분석
-print("\n=== 강남구와 양천구 년도별 평균 거래금액 분석 ===")
-dfs = [df_2017, df_2018, df_2019, df_2020, df_2021, df_2022, df_2023, df_2024, df_2025]
-
 # 모든 자치구의 평균 거래금액 분석
 show_all_gu_avg_price(dfs, years)
 
