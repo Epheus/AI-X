@@ -173,13 +173,18 @@ read_csv.py가 실행되면 datasets 밑에는 년도.csv 파일이 생성되고
 ```
 ![2017년 서울시 자치구별 부동산 거래 건수](https://private-user-images.githubusercontent.com/59636924/449779945-100e70b6-9814-4e2d-9344-b9f060b4c7ff.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDg3OTAxNDUsIm5iZiI6MTc0ODc4OTg0NSwicGF0aCI6Ii81OTYzNjkyNC80NDk3Nzk5NDUtMTAwZTcwYjYtOTgxNC00ZTJkLTkzNDQtYjlmMDYwYjRjN2ZmLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTA2MDElMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwNjAxVDE0NTcyNVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWY1YjZiZDkzOTkwYjMzMjQ5NjlkOWExZGFkNTY0MTlkNjE0ZjYxNGZlNzYxOWI3MDhjYTM3MjA1ZDhiZWZhNjYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.ED7h67ZLy-4V3QtUbBDzhHiL3KqI3t2htnAxog1mLbc)
 ```
-<img src="https://github.com/user-attachments/assets/5a980472-e621-46fc-8dae-cdcd24759cc5" width="600"/>
+자치구 별 부동산 거래금액 분포(Boxplot)
+<img src="https://github.com/Epheus/AI-X/blob/main/visualize/Figure_1_2017.jpg" width="600"/>
 <br>
 <br>
-연도별 자치구 별 평균 부동산 거래금액 분포
+연도별 자치구 별 평균 부동산 거래금액 분포(Barplot)
 <img src="https://github.com/Epheus/AI-X/blob/main/visualize/Figure_2_2017.jpg" width="600"/>
-
-
+연도별 부동산 물건금액(만원)과 각 Feature간 상관관계
+<img src="https://github.com/Epheus/AI-X/blob/main/visualize/Figure_3_2017.jpg" width="600"/>
+- 토지면적과 건물 면적은 전체적으로는 정비례의 경향이 나타나지만, 특정 부동산 유형에서는 이 관계가 다르게 나타남
+ 1) 아파트 : 건물면적↑↑, 토지면적↓↓, 건물면적 중심의 가격 결정 특징을 가짐
+ 2) 오피스텔 : 건물면적↑↑, 토지면적↓, 소형 주거/ 상업지, 건물 중심
+ 3) 단독/ 다가구 : 건물면적↑, 토지면적↑↑, 토지중심의 자산/ 건물면적 영향이 적음
 
 ### 예(강남구) 연도별 평균 금액의 변화 
 앞에서 진행한 read_csv.py로 정제된 데이터를 만들고 
