@@ -176,6 +176,10 @@ read_csv.py가 실행되면 datasets 밑에는 년도.csv 파일이 생성되고
 <img src="https://github.com/user-attachments/assets/5a980472-e621-46fc-8dae-cdcd24759cc5" width="600"/>
 <br>
 <br>
+연도별 자치구 별 평균 부동산 거래금액 분포
+<img src="https://github.com/Epheus/AI-X/blob/main/visualize/Figure_2_2017.jpg" width="600"/>
+
+
 
 ### 예(강남구) 연도별 평균 금액의 변화 
 앞에서 진행한 read_csv.py로 정제된 데이터를 만들고 
