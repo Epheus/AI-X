@@ -277,11 +277,8 @@ def visualize_correlation(df_cleaned, year):
 - 파일명 형식: `YYYY.csv` (정제된 데이터)
 - final_pt.py를 실행시킬 때 아래와 같이 예로 강남구, 양천구를 선택해서 진행하면 아래와 같은 연도별 강남구의 평균 건물 각격의 변화를 출력할 수 있다.
 
-![image](https://github.com/user-attachments/assets/892ba280-df2a-46a7-a3e9-7c13022979a4)
 
-![image](https://github.com/user-attachments/assets/facd812f-7119-4097-835a-3077c2189cae)
 ![Image](https://github.com/user-attachments/assets/ccc34c2c-8934-4189-b5eb-b50747638300)
-
 ![image](https://github.com/user-attachments/assets/25ef2f8f-996e-4c8f-afb7-5d106a757dea)
 <br>
 데이터 분석을 위해 전체 구에대해 년도별 평균 금액 가격을 나타내보면 아래와 같이 특정 기간(코로나 기간)을 제외하고 증가 추세에 있음을 알 수 있다. 
@@ -459,11 +456,13 @@ Tensorflow Keras 기반 LSTM 구성
 ## V. Related Work 
 <br>
 * Reference 선형회귀모델
-  - [https://ko.wikipedia.org/wiki/%EC%84%A0%ED%98%95_%ED%9A%8C%EA%B7%80]
 <br>
+  https://ko.wikipedia.org/wiki/%EC%84%A0%ED%98%95_%ED%9A%8C%EA%B7%80
+
 <br>  
 * Reference LSTM 모델
-  - [https://en.wikipedia.org/wiki/Long_short-term_memory]
+<br>
+  https://en.wikipedia.org/wiki/Long_short-term_memory
 <br>
 <br>
 
