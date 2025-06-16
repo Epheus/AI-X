@@ -156,7 +156,17 @@ python read_csv.py
 #### 5. 최종결과
 read_csv.py가 실행되면 datasets 밑에는 년도.csv 파일이 생성되고 해당 파일은 결측치가 없는 정제된 데이터이다. 
 따라서 해당 파일로 부동산 예측을 진행하면 된다. 
-
+```bash
+df_2017_cleaned = preprocess_data_and_save(2017)
+df_2018_cleaned = preprocess_data_and_save(2018)
+df_2019_cleaned = preprocess_data_and_save(2019)
+df_2020_cleaned = preprocess_data_and_save(2020)
+df_2021_cleaned = preprocess_data_and_save(2021)
+df_2022_cleaned = preprocess_data_and_save(2022)
+df_2023_cleaned = preprocess_data_and_save(2023)
+df_2024_cleaned = preprocess_data_and_save(2024)
+df_2025_cleaned = preprocess_data_and_save(2025)
+```
 
 #### 참고사항: 데이터 정제 기준되는 칼럼과 불필요한 칼럼을 설정할 수 있다. 
 - 기준 컬럼: 지번구분, 토지면적(㎡), 층, 건물용도, 건축년도, 본번, 부번, 자치구명
@@ -173,29 +183,113 @@ read_csv.py가 실행되면 datasets 밑에는 년도.csv 파일이 생성되고
 ```
 ![2017년 서울시 자치구별 부동산 거래 건수](https://private-user-images.githubusercontent.com/59636924/449779945-100e70b6-9814-4e2d-9344-b9f060b4c7ff.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDg3OTAxNDUsIm5iZiI6MTc0ODc4OTg0NSwicGF0aCI6Ii81OTYzNjkyNC80NDk3Nzk5NDUtMTAwZTcwYjYtOTgxNC00ZTJkLTkzNDQtYjlmMDYwYjRjN2ZmLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTA2MDElMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwNjAxVDE0NTcyNVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWY1YjZiZDkzOTkwYjMzMjQ5NjlkOWExZGFkNTY0MTlkNjE0ZjYxNGZlNzYxOWI3MDhjYTM3MjA1ZDhiZWZhNjYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.ED7h67ZLy-4V3QtUbBDzhHiL3KqI3t2htnAxog1mLbc)
 ```
+- 전처리된 csv 파일들을 `datasets` 디렉토리에 위치시킵니다.
+- 파일명 형식: `YYYY.csv` (정제된 데이터)
+- visualize.py에서 데이터 시각화를 통하여 결과 값과 각 Feature들간의 경향성 및 상관관계를 확인
+
+```bash
+def visualize_gu_prices(df_cleaned, year):
+    if '자치구명' not in df_cleaned.columns or '물건금액(만원)' not in df_cleaned.columns:
+        print(f"[경고] {year}년 데이터에 필수 컬럼 없음")
+        return
+
+    ordered_gu = df_cleaned.groupby('자치구명')['물건금액(만원)'].mean().sort_values(ascending=False).index
+
+
+
+    # 1) Boxplot 시각화 : 25개 자치구 별 집 값 가격의 분포
+    ordered_gu = df_cleaned.groupby('자치구명')['물건금액(만원)'].mean().sort_values(ascending=False).index
+
+    plt.figure(figsize=(14, 6))
+    sns.boxplot(x='자치구명', y='물건금액(만원)', data=df_cleaned, order=ordered_gu)
+    plt.title(f'{year}년 자치구 별 부동산 거래금액 분포', fontsize=12)
+    plt.xticks(rotation=90)
+    formatter = FuncFormatter(lambda x, _: f'{int(x / 1000)}k')
+    plt.gca().yaxis.set_major_formatter(formatter)
+    plt.tight_layout()
+    plt.savefig(os.path.join(save_dir, f'Figure_1_{year}.jpg'))
+    plt.close()
+```
 자치구 별 부동산 거래금액 분포(Boxplot)
-<img src="https://github.com/Epheus/AI-X/blob/main/visualize/Figure_1_2017.jpg" width="600"/>
+<br>
+![image](https://github.com/user-attachments/assets/7483187c-67ea-48c5-b46b-17ddf0835b5d)
 <br>
 <br>
 연도별 자치구 별 평균 부동산 거래금액 분포(Barplot)
-<img src="https://github.com/Epheus/AI-X/blob/main/visualize/Figure_2_2017.jpg" width="600"/>
-연도별 부동산 물건금액(만원)과 각 Feature간 상관관계
-<img src="https://github.com/Epheus/AI-X/blob/main/visualize/Figure_3_2017.jpg" width="600"/>
+<br>
+```bash
+    # 2) Barplot 시각화 : 25개 자치구 별 평균 부동산 거래금액 분포
+    sns.barplot(x='자치구명', y='물건금액(만원)', data=df_cleaned,
+                estimator='mean',
+                order=df_cleaned.groupby('자치구명')['물건금액(만원)'].mean().sort_values(ascending=False).index)
+    plt.title(f'{year}년 자치구 별 평균 부동산 거래금액 분포', fontsize=12)
+    plt.xticks(rotation=90)
+    formatter = FuncFormatter(lambda x, _: f'{int(x / 1000)}k')
+    plt.gca().yaxis.set_major_formatter(formatter)
+    plt.tight_layout()
+    plt.savefig(os.path.join(save_dir, f'Figure_2_{year}.jpg'))
+    plt.close()
+```
+![image](https://github.com/user-attachments/assets/0f2b78e6-231a-4619-9dd9-b4ffa8d9c4f9)
+<br>
+<br>
+연도별 부동산 물건금액(만원)과 각 Feature간 상관관계(Heatmap)
+<br>
+- 거래 금액(만원)과 각 Feature들의 상관관계 확인을 위해 수치형 컬럼과 문자형 컬럼을 결합하여 Heatmap 시각화(One-hot Encoding)
+```bash
+def visualize_correlation(df_cleaned, year):
+    # 문자형 컬럼 중 고유값 100개 이하인 것만 추출
+    non_numeric_cols = df_cleaned.select_dtypes(include='object').columns
+    target_cat_cols = [col for col in non_numeric_cols if df_cleaned[col].nunique() <= 100]
+
+    # One-hot encoding
+    df_dummies = pd.get_dummies(df_cleaned[target_cat_cols], drop_first=False)
+
+    # 수치형 feature 추출
+    numeric_cols = df_cleaned.select_dtypes(include=['int64', 'float64']).drop(columns=['물건금액(만원)'], errors='ignore')
+
+    # 결합 후 상관계수 계산
+    df_corr_input = pd.concat([df_cleaned[['물건금액(만원)']], numeric_cols, df_dummies], axis=1)
+    corr = df_corr_input.corr()['물건금액(만원)'].drop('물건금액(만원)').sort_values(ascending=False)
+
+    # 3) Heatmap 시각화 : [물건금액] 컬럼에 대한 전체 feature들의 상관관계 히트맵
+    # 상위 40개 히트맵 시각화
+    plt.figure(figsize=(6, 10))
+    sns.heatmap(corr.head(40).to_frame(), annot=True, cmap='coolwarm', fmt='.3f')
+    plt.title(f'{year}년 물건금액(만원)과 Feature 상관관계 (Top 40)')
+    plt.tight_layout()
+    plt.savefig(os.path.join(save_dir, f'Figure_3_{year}.jpg'))
+    plt.close()
+```
+<br>
+![image](https://github.com/user-attachments/assets/dcce63ab-5ba4-4321-b194-7a90754db63a)
+<br>
 - 토지면적과 건물 면적은 전체적으로는 정비례의 경향이 나타나지만, 특정 부동산 유형에서는 이 관계가 다르게 나타남
  1) 아파트 : 건물면적↑↑, 토지면적↓↓, 건물면적 중심의 가격 결정 특징을 가짐
  2) 오피스텔 : 건물면적↑↑, 토지면적↓, 소형 주거/ 상업지, 건물 중심
  3) 단독/ 다가구 : 건물면적↑, 토지면적↑↑, 토지중심의 자산/ 건물면적 영향이 적음
+<br>
+<br>
 
-### 예(강남구) 연도별 평균 금액의 변화 
-앞에서 진행한 read_csv.py로 정제된 데이터를 만들고 
-final_pt.py를 실행시킬 때 아래와 같이 예로 강남구를 선택해서 진행하면 아래와 같은 연도별 강남구의 평균 건물 각격의 변화를 출력할 수 있다.
 
+### 예(강남구, 양천구) 연도별 평균 금액의 변화 
+- 전처리된 csv 파일들을 `datasets` 디렉토리에 위치시킵니다.
+- 파일명 형식: `YYYY.csv` (정제된 데이터)
+- final_pt.py를 실행시킬 때 아래와 같이 예로 강남구, 양천구를 선택해서 진행하면 아래와 같은 연도별 강남구의 평균 건물 각격의 변화를 출력할 수 있다.
+
+![image](https://github.com/user-attachments/assets/892ba280-df2a-46a7-a3e9-7c13022979a4)
+
+![image](https://github.com/user-attachments/assets/facd812f-7119-4097-835a-3077c2189cae)
 ![Image](https://github.com/user-attachments/assets/ccc34c2c-8934-4189-b5eb-b50747638300)
 
+![image](https://github.com/user-attachments/assets/25ef2f8f-996e-4c8f-afb7-5d106a757dea)
+<br>
 데이터 분석을 위해 전체 구에대해 년도별 평균 금액 가격을 나타내보면 아래와 같이 특정 기간(코로나 기간)을 제외하고 증가 추세에 있음을 알 수 있다. 
-그러나 자세히 보면 구마다의 특성은 같지 않음을 알 수 있으며, 2025년도에 들어서 안정세로 접어드는 구도 있음을 알 수 있다. 
-![Image](https://github.com/user-attachments/assets/688a2b23-d18c-4d00-a337-47085360ef15)
+그러나 자세히 보면 구마다의 특성은 같지 않음을 알 수 있으며, 2025년도에 들어서 안정세로 접어드는 구도 있음을 알 수 있다.
 
+![Image](https://github.com/user-attachments/assets/688a2b23-d18c-4d00-a337-47085360ef15)
+<br>
+<br>
 
 ### 참고사항
 ### 상관도 분석을 통한 특정 구의 집값 예측
@@ -203,13 +297,133 @@ final_pt.py를 실행시킬 때 아래와 같이 예로 강남구를 선택해�
 예를 들어 양천구의 년도 구간별 상관성을 보면 다음과 같다. 검은색 첫 열은 각 년도 구간별로 선택된 구의 최고 상관도를 나타냈던 구이고
 그 밑줄은 최고 상관도로 선택되었던 구가 해당 년도에 어떤 상관도 값을 가졌었는지 나타낸 것이다. 
 
+```bash
+def find_highest_correlation_gu(correlation_matrix, gu_name):
+    """
+    특정 구에 대한 최고 상관관계를 찾는 함수
+    
+    Parameters:
+    correlation_matrix: 상관관계 행렬
+    gu_name (str): 분석할 구 이름
+    """
+    # 구 이름 리스트 생성
+    gu_list = sorted(common_gu)
+    
+    # 해당 구의 인덱스 찾기
+    gu_idx = gu_list.index(gu_name)
+    
+    # 해당 구의 상관관계 값들 추출
+    correlations = correlation_matrix[gu_idx].copy()
+    
+    # 자기 자신과의 상관관계는 제외 (1.0)
+    correlations[gu_idx] = 0
+    
+    # 최고 상관관계 값과 인덱스 찾기
+    max_corr_idx = np.argmax(np.abs(correlations))
+    max_corr = correlations[max_corr_idx]
+    
+    return gu_list[max_corr_idx], max_corr
+
+def find_correlation_between_gu(correlation_matrix, gu1_name, gu2_name):
+    """
+    두 구 간의 상관관계를 찾는 함수
+    
+    Parameters:
+    correlation_matrix: 상관관계 행렬
+    gu1_name (str): 첫 번째 구 이름
+    gu2_name (str): 두 번째 구 이름
+    """
+    # 구 이름 리스트 생성
+    gu_list = sorted(common_gu)
+    
+    # 각 구의 인덱스 찾기
+    gu1_idx = gu_list.index(gu1_name)
+    gu2_idx = gu_list.index(gu2_name)
+    
+    # 두 구 간의 상관관계 값 찾기
+    correlation = correlation_matrix[gu1_idx][gu2_idx]
+    
+    return correlation
+```
 ![Image](https://github.com/user-attachments/assets/415ecb7f-9153-446d-b6c9-aee1c5744603)
+<br>
 
 목표가 되는 양천구 26년도 집값에 가장 상관성이 높은 곳은 송파구다. 
 따라서 송파구가 26년도에 올라갔다면 양천구도 오를 가능성이 높다고 예측할 수 있는 것이다. 또한 특정 구 1개로 불안하다면 그동안 높은 상관도를 보였던 다른 구인 도봉구와 은평구를 참조할 수도 있다. 
 
 이러한 방식을 활용하기위한 각 구별 전체 상관도는 다음과 같다. 
+<br>
+```bash
+def visualize_all_gu_correlations(correlation_matrices, matrix_info):
+    """
+    모든 구의 상관관계 체인을 2열로 나열하여 표시하는 함수
+    
+    Parameters:
+    correlation_matrices: [2022-2025, 2019-2022, 2017-2019] 순서의 상관관계 행렬 리스트
+    matrix_info: 각 행렬의 기간 정보
+    """
+    # 구 목록 가져오기
+    gu_list = sorted(common_gu)
+    
+    # 행과 열 계산
+    n_gus = len(gu_list)
+    n_cols = 2
+    n_rows = (n_gus + 1) // 2  # 올림 나눗셈
+    
+    # 전체 그래프 크기 설정
+    plt.figure(figsize=(20, 5 * n_rows))
+    
+    # 각 구에 대한 상관관계 체인 그리기
+    for idx, gu in enumerate(gu_list):
+        # 서브플롯 위치 계산
+        row = idx // n_cols
+        col = idx % n_cols
+        ax = plt.subplot(n_rows, n_cols, idx + 1)
+        
+        # 각 기간별 최고 상관관계 구 찾기
+        correlations = []
+        highest_corr_gus = []
+        
+        for matrix in correlation_matrices:
+            highest_gu, corr = find_highest_correlation_gu(matrix, gu)
+            highest_corr_gus.append(highest_gu)
+            correlations.append(corr)
+        
+        # 동그라미와 선 그리기
+        circle_radius = 0.4
+        spacing = 3
+        
+        for i in range(4):  # 4개의 동그라미 (시작 구 + 3개 기간)
+            # 동그라미 그리기
+            circle = plt.Circle((i * spacing, 0), circle_radius, fill=False, color='black')
+            ax.add_patch(circle)
+            
+            # 구 이름과 상관계수 표시
+            if i == 0:
+                text = gu
+            else:
+                text = f"{matrix_info[i-1]}\n{highest_corr_gus[i-1]}\n({correlations[i-1]:.3f})"
+            
+            ax.text(i * spacing, 0, text, ha='center', va='center', fontsize=8)
+            
+            # 선 그리기 (마지막 동그라미 전까지만)
+            if i < 3:
+                ax.plot([i * spacing + circle_radius, (i+1) * spacing - circle_radius], 
+                       [0, 0], 'k-')
+        
+        # 서브플롯 설정
+        ax.set_xlim(-1, 12)  # x축 범위 설정
+        ax.set_ylim(-1, 1)   # y축 범위 설정
+        ax.axis('off')
+        ax.set_title(f'{gu}의 상관관계 체인', fontsize=10)
+    
+    plt.tight_layout()
+    plt.show()
+```
 ![Image](https://github.com/user-attachments/assets/b14f4b64-8f53-4a0e-95d6-36ba7578c396)
+<br>
+<br>
+
 
 ## III. Methodology
 ### 적용 모델 : 
@@ -244,19 +458,19 @@ Tensorflow Keras 기반 LSTM 구성
 
 ## V. Related Work 
 <br>
-* Reference A
-  - https://
+* Reference 선형회귀모델
+  - [https://ko.wikipedia.org/wiki/%EC%84%A0%ED%98%95_%ED%9A%8C%EA%B7%80]
 <br>
 <br>  
-* Reference A
-  - https://
+* Reference LSTM 모델
+  - [https://en.wikipedia.org/wiki/Long_short-term_memory]
 <br>
 <br>
-심규호 - 데이터를 바탕으로 2026년 강남구 집값 예측 - 선형회귀모델, LSTM 모델 두가지 분석 결과 도출 
+
 
 
 ## VI. Conclusion: Discussion
-### Conclusion
+### Conclusion & Discussion
 서울시 전체 자치구 대상으로 LSTM 분석해보니, 개인 노트북으로 불가하여 (시행착오를 반복해야하는데, 한번의 py 파일 실행으로 향후 업데이트가 안됨), 대표적인 강남구로 건축유형별로 2026년 집값 예측함.
 향후 Colab등 클라우드 기반 서비스를 이용하여 각 자치구 별 전체 분석도 가능할 것으로 보임. 이번 프로젝트에서는 대표적인 강남구에 대한 결과를 업로드 하였음.
 
@@ -266,14 +480,15 @@ Tensorflow Keras 기반 LSTM 구성
 향후에 정책/금융 변수 포함한 멀티모달 예측 모델 및 Transformer 기반 시계열 예측 모델 도입 검토가 되면 더욱 더 정확한 값을 예측할 수 있을 것 같고,
 자치구 간 연관관계 분석 및 클러스터링 가능성 탐색하면 더 발전된 모델로 변모 가능 예상됨
 
-### Discussion
-<br>
-<br>
 
 
 ## VII. Credits
-Dataset searching, Dataset preprocessing, Data visualization, Methodology introduction
-Code implementation, Model training and evaluation, Video recording, Write up Github
+
+- 최가형 | Dataset preprocessing, Data visualization, Code implementation, Write up Github
+- 유준석 | Dataset searching, Data visualization, Code implementation, Write up Github
+- 심규호 | Methodology introduction, Model training and evaluation, Write up Github
+
+
 
 
 
