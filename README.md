@@ -445,8 +445,6 @@ Tensorflow Keras 기반 LSTM 구성
 (각 자치구별 예상 그래프는 Liner Regression 및 LSTM python 파일에서 해당 자치구로 변경하면 결과 확인 가능합니다.)
 
 1. 선형회귀모델 결과 그래프
-<br>
-<br>
 ```bash
 def predict_2026(grouped):
     result = []
@@ -511,12 +509,8 @@ def plot_gu_predictions(grouped, pred_df, target_gu):
 ```
 
 ![선형회귀모델 결과_강남구](https://github.com/user-attachments/assets/3f8cd6e7-92ff-4380-80ea-7d3180edc9ea)
-<br>
-<br>
 
 2. LSTM을 통한 결과 그래프
-<br>
-<br>
 ```bash
 # LSTM 모델
 def train_lstm_model(X_train, y_train):
@@ -596,8 +590,7 @@ def plot_gu_predictions(grouped, pred_df, target_gu):
 ```
 
 ![LSTMfinal결과](https://github.com/user-attachments/assets/e44c3171-ef9f-46fa-922a-87f26d03bae0)
-<br>
-<br>
+
 두 모델 모두 지속적인 상승 추세를 보이며, 2026년에도 가격 상승이 예상됨
 강남구는 아파트뿐 아니라 다가구주택의 실거래가도 상승세를 보이고 있음
 단순 선형회귀와 LSTM의 결과가 유사하여 데이터의 일관성과 모델의 신뢰성 확보
