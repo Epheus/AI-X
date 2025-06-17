@@ -445,11 +445,159 @@ Tensorflow Keras 기반 LSTM 구성
 (각 자치구별 예상 그래프는 Liner Regression 및 LSTM python 파일에서 해당 자치구로 변경하면 결과 확인 가능합니다.)
 
 1. 선형회귀모델 결과 그래프
+<br>
+<br>
+```bash
+def predict_2026(grouped):
+    result = []
+    gu_list = grouped["자치구"].unique()
+
+    for gu in gu_list:
+        gu_df = grouped[grouped["자치구"] == gu]
+
+        for usage in gu_df["건물용도"].unique():
+            data = gu_df[gu_df["건물용도"] == usage]
+
+            if len(data) >= 3:
+                X = data["연도"].values.reshape(-1, 1)
+                y = data["금액"].values
+                model = LinearRegression()
+                model.fit(X, y)
+
+                pred_2026 = model.predict([[2026]])[0]
+                result.append({"자치구": gu, "건물용도": usage, "2026예측금액": round(pred_2026, 2)})
+
+    return pd.DataFrame(result)
+
+
+def plot_gu_predictions(grouped, pred_df, target_gu):
+    plt.figure(figsize=(10, 6))
+
+    gu_data = grouped[grouped["자치구"] == target_gu]
+    pred_data = pred_df[pred_df["자치구"] == target_gu]
+
+    # 건물용도별 선 색상을 고정하기 위해 컬러맵 생성
+    usage_list = gu_data["건물용도"].unique()
+    colors = plt.cm.get_cmap('tab10', len(usage_list))
+    color_dict = {usage: colors(i) for i, usage in enumerate(usage_list)}
+
+    for usage in usage_list:
+        usage_data = gu_data[gu_data["건물용도"] == usage]
+        color = color_dict[usage]
+
+        # 실거래 데이터 선 그래프
+        plt.plot(usage_data["연도"], usage_data["금액"], marker="o", label=f"{usage} (실거래)", color=color)
+
+        # 2026년 예측값 가져오기
+        pred_val = pred_data[pred_data["건물용도"] == usage]["2026예측금액"]
+        if not pred_val.empty:
+            y_pred = pred_val.values[0]
+
+            # 2025년 실제 데이터의 마지막 값과 2026년 예측값 연결 (점선)
+            last_year = usage_data["연도"].max()
+            last_val = usage_data[usage_data["연도"] == last_year]["금액"].values[0]
+            plt.plot([last_year, 2026], [last_val, y_pred], linestyle="--", color=color)
+
+            # 2026년 예측값 점 찍기 (실거래 선 색과 동일)
+            plt.scatter(2026, y_pred, color=color, edgecolor='black', zorder=5, s=80, label=f"{usage} (예측)")
+
+    plt.title(f"{target_gu} - 건물용도별 2026년 평균 집값 예측")
+    plt.xlabel("연도")
+    plt.ylabel("평균 금액 (만원)")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+```
+
 ![선형회귀모델 결과_강남구](https://github.com/user-attachments/assets/3f8cd6e7-92ff-4380-80ea-7d3180edc9ea)
+<br>
+<br>
 
 2. LSTM을 통한 결과 그래프
-![LSTMfinal결과](https://github.com/user-attachments/assets/e44c3171-ef9f-46fa-922a-87f26d03bae0)
+<br>
+<br>
+```bash
+# LSTM 모델
+def train_lstm_model(X_train, y_train):
+    model = Sequential()
+    model.add(LSTM(50, activation='relu', input_shape=(X_train.shape[1], 1)))
+    model.add(Dense(1))
+    model.compile(optimizer='adam', loss='mse')
+    model.fit(X_train, y_train, epochs=100, verbose=0)
+    return model
 
+# 시퀀스 생성 함수
+def create_sequences(data, seq_length):
+    X, y = [], []
+    for i in range(len(data) - seq_length):
+        X.append(data[i:i + seq_length])
+        y.append(data[i + seq_length])
+    return np.array(X), np.array(y)
+
+# 예측 (정규화 포함)
+def predict_2026_lstm(grouped):
+    result = []
+    gu_list = grouped["자치구"].unique()
+    for gu in gu_list:
+        gu_df = grouped[grouped["자치구"] == gu]
+        for usage in gu_df["건물용도"].unique():
+            data = gu_df[gu_df["건물용도"] == usage].sort_values("연도")
+            prices = data["금액"].values.reshape(-1, 1)
+
+            if len(prices) >= 4:
+                scaler = MinMaxScaler()
+                scaled_prices = scaler.fit_transform(prices).flatten()
+
+                X, y = create_sequences(scaled_prices, seq_length=3)
+                X = X.reshape((X.shape[0], X.shape[1], 1))
+
+                model = train_lstm_model(X, y)
+
+                last_seq = scaled_prices[-3:].reshape((1, 3, 1))
+                pred_scaled = model.predict(last_seq, verbose=0)[0][0]
+
+                pred_2026 = scaler.inverse_transform([[pred_scaled]])[0][0]
+
+                result.append({"자치구": gu, "건물용도": usage, "2026예측금액": round(pred_2026, 2)})
+    return pd.DataFrame(result)
+
+# 시각화
+def plot_gu_predictions(grouped, pred_df, target_gu):
+    plt.figure(figsize=(10, 6))
+    gu_data = grouped[grouped["자치구"] == target_gu]
+    pred_data = pred_df[pred_df["자치구"] == target_gu]
+
+    usage_list = gu_data["건물용도"].unique()
+    colors = plt.cm.get_cmap('tab10', len(usage_list))
+    color_dict = {usage: colors(i) for i, usage in enumerate(usage_list)}
+
+    for usage in usage_list:
+        usage_data = gu_data[gu_data["건물용도"] == usage]
+        color = color_dict[usage]
+
+        plt.plot(usage_data["연도"], usage_data["금액"], marker="o", label=f"{usage} (실거래)", color=color)
+
+        pred_val = pred_data[pred_data["건물용도"] == usage]["2026예측금액"]
+        if not pred_val.empty:
+            y_pred = pred_val.values[0]
+            last_year = usage_data["연도"].max()
+            last_val = usage_data[usage_data["연도"] == last_year]["금액"].values[0]
+            plt.plot([last_year, 2026], [last_val, y_pred], linestyle="--", color=color)
+            plt.scatter(2026, y_pred, color=color, edgecolor='black', zorder=5, s=80, label=f"{usage} (예측)")
+
+    plt.title(f"{target_gu} - 건물용도별 2026년 평균 집값 예측 (LSTM)")
+    plt.xlabel("연도")
+    plt.ylabel("평균 금액 (만원)")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+```
+
+![LSTMfinal결과](https://github.com/user-attachments/assets/e44c3171-ef9f-46fa-922a-87f26d03bae0)
+<br>
+<br>
 두 모델 모두 지속적인 상승 추세를 보이며, 2026년에도 가격 상승이 예상됨
 강남구는 아파트뿐 아니라 다가구주택의 실거래가도 상승세를 보이고 있음
 단순 선형회귀와 LSTM의 결과가 유사하여 데이터의 일관성과 모델의 신뢰성 확보
